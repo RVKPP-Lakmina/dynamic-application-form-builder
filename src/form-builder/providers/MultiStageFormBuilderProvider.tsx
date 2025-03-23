@@ -41,9 +41,11 @@ export default function MultiStageFormBuilderProvider({
 
     const onExpand =
       // @ts-nocheck
-      (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-        setExpanded(isExpanded ? panel : "");
-      };
+
+        (panel: string) =>
+        (_event: React.SyntheticEvent, isExpanded: boolean) => {
+          setExpanded(isExpanded ? panel : "");
+        };
 
     return {
       handleValidation,
