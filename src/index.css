@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+:root {
+  --primary-color: #1976d2;
+  --button-width: 100px;
+  --button-height: 40px;
+  --textfield-width: 100px;
+  --textfield-height: 40px;
+  --button-padding: 8px 16px;
+  --text-color: #333;
+}
+
+[data-theme="general"] {
+  --primary-color: #4caf50;
+  --button-width: 120px;
+  --button-height: 50px;
+  --textfield-width: 120px;
+  --textfield-height: 50px;
+  --button-padding: 12px 24px;
+  --text-color: #2c3e50;
+}
+
+[data-theme="fancy"] {
+  --primary-color: #9c27b0;
+  --button-width: 150px;
+  --button-height: 60px;
+  --textfield-width: 150px;
+  --textfield-height: 60px;
+  --button-padding: 16px 32px;
+  --text-color: #6a1b9a;
+}
