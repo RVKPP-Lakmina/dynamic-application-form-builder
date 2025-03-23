@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useCallback, useEffect, useState } from "react";
 import MultiStageFormBuilderContext from "../context/MultiStageFormBuilderContext";
 import useStore from "../hooks/useStore";
@@ -39,6 +40,7 @@ export default function MultiStageFormBuilderProvider({
     const onNext = () => {};
 
     const onExpand =
+      // @ts-nocheck
       (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : "");
       };

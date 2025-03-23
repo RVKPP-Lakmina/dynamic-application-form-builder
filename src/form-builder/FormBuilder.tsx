@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import FormBuilderApi from "./services/formBuilderApi";
 import Logger from "../utility/logger";
 import {
   FormBuilderProps,
@@ -24,7 +23,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
 export default FormBuilder;
 
 const IntermediateFormBuilder: React.FC<IntermediateFormBuilderProps> = ({
-  formId,
+  // formId,
   otherParams,
 }: IntermediateFormBuilderProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

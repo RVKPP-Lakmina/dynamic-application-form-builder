@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import API from "../../services/apiConfig";
 import endpoints from "./endpoints";
 
+// @ts-nocheck
 export default class FormBuilderApi {
   private api = API.apiConfigIntance;
   private enpoints = endpoints();
