@@ -27,5 +27,17 @@ export const muiTheme = createTheme({
         },
       },
     },
+
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          "& .MuiSelect-select": {
+            color: "var(--text-color)",
+            width: "var(--textfield-width)",
+            height: "var(--textfield-height)",
+          },
+        },
+      },
+    },
   },
 });

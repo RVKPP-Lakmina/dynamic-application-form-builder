@@ -2,8 +2,16 @@ import AccordionComponent from "../ui/AccordionComponent";
 import FormStoreConfigBreaker from "./FormStoreConfigBreaker";
 import useMultiStageFormBuilder from "../../hooks/useMultiStageFormBuilder";
 import { Box, Button, Stack } from "@mui/material";
+import { MetaDataProps } from "../../interfaces/interfaces";
 
-const SectionBuilder = ({ elementId, metaData }) => {
+interface SectionBuilderProps extends MetaDataProps {
+  elementId: string;
+}
+
+const SectionBuilder: React.FC<SectionBuilderProps> = ({
+  elementId,
+  metaData,
+}: SectionBuilderProps) => {
   const { useHandleOnNext } = useMultiStageFormBuilder();
   const { expanded, onExpand } = useHandleOnNext();
 

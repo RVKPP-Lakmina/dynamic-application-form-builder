@@ -3,7 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { muiTheme } from "../theme/theme";
 
 const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState("normal");
+  const [, setTheme] = useState("normal");
 
   useEffect(() => {
     const savedTheme = sessionStorage.getItem("theme") || "normal";

@@ -1,9 +1,11 @@
-import Box from "@mui/material/Box/Box";
-import FormStoreConfigBreaker from "../../other-components/FormStoreConfigBreaker";
-import { Stack } from "@mui/material";
+import { MetaDataProps } from "../../../interfaces/interfaces";
 import Row from "./Row";
 
-const Wrap = ({ elementId, metaData }) => {
+interface WrapProps extends MetaDataProps {
+  elementId: string;
+}
+
+const Wrap: React.FC<WrapProps> = ({ elementId, metaData }: WrapProps) => {
   return (
     // <div className="p-1 gap-2 grid grid-cols-4 ">
     //   <FormStoreConfigBreaker

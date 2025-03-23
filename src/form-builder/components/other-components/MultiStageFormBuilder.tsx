@@ -5,8 +5,8 @@ import StoreProvider from "../../providers/StoreProvider";
 
 const MultiStageFormBuilder: React.FC<MultiStageFormBuilderProps> = ({
   formStore,
-  otherParams,
-}: MultiStageFormBuilderProps) => {
+}: // otherParams,
+MultiStageFormBuilderProps) => {
   switch (formStore?.type) {
     case "form": {
       return (

@@ -1,4 +1,5 @@
-import { use, useCallback, useEffect, useMemo, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCallback, useEffect, useState } from "react";
 import MultiStageFormBuilderContext from "../context/MultiStageFormBuilderContext";
 import useStore from "../hooks/useStore";
 
@@ -7,10 +8,10 @@ export default function MultiStageFormBuilderProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [applicationSectionErrors, setApplicationSectionErrors] = useState<
-    Record<string, string[]>
-  >({});
-  const [currSaveData, setCurrSaveData] = useState<Record<string, unknown>>({});
+  // const [applicationSectionErrors, setApplicationSectionErrors] = useState<
+  //   Record<string, string[]>
+  // >({});
+  // const [currSaveData, setCurrSaveData] = useState<Record<string, unknown>>({});
   const [expanded, setExpanded] = useState<string>("");
 
   const useHandleOnNext = () => {

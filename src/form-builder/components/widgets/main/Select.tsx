@@ -2,10 +2,18 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { MetaDataProps } from "../../../interfaces/interfaces";
 
-const SelectField = ({ elementId, metaData }) => {
+interface SelectFieldProps extends MetaDataProps {
+  elementId: string;
+}
+
+const SelectField: React.FC<SelectFieldProps> = ({
+  elementId,
+  metaData,
+}: SelectFieldProps) => {
   return (
-    <FormControl className="w-[320px]">
+    <FormControl>
       <InputLabel id={`${elementId}-Box-FormControl-InputLabel`}>
         {metaData.title}
       </InputLabel>

@@ -6,8 +6,23 @@ import {
   Stack,
 } from "@mui/material";
 import { ArrowDownFromLine, CircleEllipsis } from "lucide-react";
+import { FormStore } from "../../interfaces/interfaces";
 
-const AccordionComponent = ({ children, formData, expanded, onExpand }) => {
+interface AccordionComponentProps {
+  children: React.ReactNode;
+  formData: FormStore;
+  expanded: string | false;
+  onExpand: (
+    panel: string
+  ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
+}
+
+const AccordionComponent: React.FC<AccordionComponentProps> = ({
+  children,
+  formData,
+  expanded,
+  onExpand,
+}: AccordionComponentProps) => {
   return (
     <Accordion
       expanded={expanded === formData.dataKey}

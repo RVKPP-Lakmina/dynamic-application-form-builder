@@ -1,11 +1,16 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import useMultiStageFormBuilder from "../../../hooks/useMultiStageFormBuilder";
+import { MetaDataProps } from "../../../interfaces/interfaces";
 
-const Text = ({ elementId, metaData }) => {
+interface TextProps extends MetaDataProps {
+  elementId: string;
+}
+
+const Text: React.FC<TextProps> = ({ elementId, metaData }) => {
   const { useHandleOnNext } = useMultiStageFormBuilder();
   const { onChangeValueHandler, value } = useHandleOnNext();
-  const [text, setText] = useState(value[metaData.dataKey]);
+  const [text, setText] = useState(value[metaData.dataKey] || "");
   return (
     <TextField
       id={`${elementId}-Box-TextField`}

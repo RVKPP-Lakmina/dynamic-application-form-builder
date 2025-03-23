@@ -6,7 +6,7 @@ const StoreProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const mainActions = useMemo(() => {
-    const onChangeValue = (section: string, payload: any) => {
+    const onChangeValue = (section: string, payload: unknown) => {
       dispatch({ type: "UPDATE_SECTION", section, payload });
     };
 

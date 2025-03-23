@@ -26,7 +26,7 @@ export interface MultiStageFormBuilderContextProps {
 
 export interface MultiStageFormBuilderProps {
   otherParams: Record<string, unknown>;
-  formStore: Record<string, unknown>;
+  formStore: FormStore;
 }
 
 // Define State Type
@@ -37,3 +37,13 @@ export type Action =
   | { type: "UPDATE_SECTION"; section: string; payload: any }
   | { type: "DELETE_SECTION"; section: string }
   | { type: "RESET_STORE" };
+
+export type FormStore = {
+  title: string;
+  type: string;
+  children: FormStore[];
+  dataKey: string;
+};
+export interface MetaDataProps {
+  metaData: FormStore;
+}
