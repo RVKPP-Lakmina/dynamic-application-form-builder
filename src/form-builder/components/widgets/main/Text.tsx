@@ -1,7 +1,7 @@
-import { TextField } from "@mui/material";
 import { useState } from "react";
 import useMultiStageFormBuilder from "../../../hooks/useMultiStageFormBuilder";
 import { MetaDataProps } from "../../../interfaces/interfaces";
+import Input from "../../ui/Input";
 
 interface TextProps extends MetaDataProps {
   elementId: string;
@@ -12,7 +12,7 @@ const Text: React.FC<TextProps> = ({ elementId, metaData }) => {
   const { onChangeValueHandler, value } = useHandleOnNext();
   const [text, setText] = useState(value[metaData.dataKey] || "");
   return (
-    <TextField
+    <Input
       id={`${elementId}-Box-TextField`}
       label={metaData.title}
       value={text}
@@ -23,8 +23,6 @@ const Text: React.FC<TextProps> = ({ elementId, metaData }) => {
         value[metaData.dataKey] = e.target.value;
         onChangeValueHandler(value);
       }}
-      variant="outlined"
-      className="w-general h-general padding-genaeral"
     />
   );
 };

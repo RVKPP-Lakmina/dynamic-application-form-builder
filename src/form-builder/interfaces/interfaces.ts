@@ -43,7 +43,16 @@ export type FormStore = {
   type: string;
   children: FormStore[];
   dataKey: string;
+  inputOptions?: { formatter: string; type: string };
 };
 export interface MetaDataProps {
   metaData: FormStore;
+}
+
+export type ThemeVariants = "general" | "normal" | "fancy";
+export interface ThemedInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  variant?: ThemeVariants;
+  label?: string;
+  labelClassName?: string;
 }

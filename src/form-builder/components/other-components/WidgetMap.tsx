@@ -6,8 +6,19 @@ import { CircularProgress } from "@mui/material";
 const searchAndVerifyWidget = <
   T extends { elementId: string; metaData: FormStore }
 >(
-  widgetName: string
+  formStore: FormStore
 ): React.LazyExoticComponent<React.ComponentType<T>> => {
+  if (
+    formStore.type === "text" &&
+    formStore?.inputOptions &&
+    mainWidgetMap.has(formStore.inputOptions.type)
+  ) {
+    return mainWidgetMap.get(
+      formStore.inputOptions.type
+    ) as React.LazyExoticComponent<React.ComponentType<T>>;
+  }
+
+  const widgetName: string = formStore.type;
   return (
     (mainWidgetMap.get(widgetName) as React.LazyExoticComponent<
       React.ComponentType<T>
@@ -33,7 +44,7 @@ const WidgetMap: React.FC<WidgetMapProps> = ({
   return (
     <React.Suspense fallback={<CircularProgress size={10} />}>
       <>
-        {React.createElement(searchAndVerifyWidget(formStore.type), {
+        {React.createElement(searchAndVerifyWidget(formStore), {
           key: `${elementId}-${formStore.type}-WidgetMap-switch-ApplicationFormBuilder-${formStore.dataKey}`,
           elementId: `${elementId}-${formStore.type}-WidgetMap-switch-ApplicationFormBuilder-${formStore.dataKey}`,
           metaData: formStore,

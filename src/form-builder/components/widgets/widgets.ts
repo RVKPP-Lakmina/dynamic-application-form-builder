@@ -21,6 +21,22 @@ export const mainWidgetMap = new Map<
     ),
   ],
   [
+    "dualOption",
+    React.lazy(() =>
+      import("./main/DualOption").then((module) => ({
+        default: module.default as React.ComponentType<unknown>,
+      }))
+    ),
+  ],
+  [
+    "date",
+    React.lazy(() =>
+      import("./main/DateBox").then((module) => ({
+        default: module.default as React.ComponentType<unknown>,
+      }))
+    ),
+  ],
+  [
     "select",
     React.lazy(() =>
       import("./main/Select").then((module) => ({

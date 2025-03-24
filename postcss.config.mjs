@@ -17,6 +17,9 @@ const config = {
         button: "var(--button-width)",
         textfield: "var(--textfield-width)",
       },
+      backgroundColor: {
+        "button-dual-option": "var(--button-dual-option)",
+      },
       height: {
         button: "var(--button-height)",
         textfield: "var(--textfield-height)",

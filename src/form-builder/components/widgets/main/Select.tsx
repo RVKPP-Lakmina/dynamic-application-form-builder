@@ -1,8 +1,5 @@
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import { MetaDataProps } from "../../../interfaces/interfaces";
+import SelectBox from "../../ui/SelectBox";
 
 interface SelectFieldProps extends MetaDataProps {
   elementId: string;
@@ -12,22 +9,17 @@ const SelectField: React.FC<SelectFieldProps> = ({
   elementId,
   metaData,
 }: SelectFieldProps) => {
-  return (
-    <FormControl>
-      <InputLabel id={`${elementId}-Box-FormControl-InputLabel`}>
-        {metaData.title}
-      </InputLabel>
-      <Select
-        labelId={`${elementId}-Box-FormControl-InputLabel`}
-        id={`${elementId}-Box-FormControl-Select`}
-        label="Age"
-      >
-        <MenuItem value={10}>Option 1</MenuItem>
-        <MenuItem value={20}>Option 2</MenuItem>
-        <MenuItem value={30}>Option 3</MenuItem>
-      </Select>
-    </FormControl>
-  );
+  const countryOptions = [
+    { value: "us", label: "United States" },
+    { value: "ca", label: "Canada" },
+    { value: "mx", label: "Mexico" },
+    { value: "uk", label: "United Kingdom" },
+    { value: "fr", label: "France" },
+    { value: "de", label: "Germany" },
+    { value: "jp", label: "Japan", disabled: true },
+  ];
+
+  return <SelectBox options={countryOptions} />;
 };
 
 export default SelectField;
