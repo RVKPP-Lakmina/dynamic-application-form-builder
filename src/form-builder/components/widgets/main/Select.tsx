@@ -5,10 +5,7 @@ interface SelectFieldProps extends MetaDataProps {
   elementId: string;
 }
 
-const SelectField: React.FC<SelectFieldProps> = ({
-  elementId,
-  metaData,
-}: SelectFieldProps) => {
+const SelectField: React.FC<SelectFieldProps> = () => {
   const countryOptions = [
     { value: "us", label: "United States" },
     { value: "ca", label: "Canada" },
@@ -18,8 +15,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
     { value: "de", label: "Germany" },
     { value: "jp", label: "Japan", disabled: true },
   ];
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _params = { elementId, metaData };
+
   return <SelectBox options={countryOptions} />;
 };
 
