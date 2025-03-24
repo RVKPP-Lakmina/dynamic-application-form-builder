@@ -87,7 +87,7 @@ export default function DualOptions({
         <Button
           type="button"
           className={`bg-button-dual-option px-4 py-2 text-sm rounded-md transition-colors
-            focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1
+            focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-1
            ${
              (selected === "left"
                ? buttonStyles[theme].active
@@ -107,7 +107,7 @@ export default function DualOptions({
           type="button"
           className={cn(
             " px-4 py-2 text-sm rounded-md transition-colors",
-            "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1",
+            "focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-1",
             selected === "right"
               ? buttonStyles[theme].active
               : buttonStyles[theme].inactive,

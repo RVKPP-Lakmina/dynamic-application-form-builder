@@ -40,11 +40,10 @@ export function DateField({
 
   // Theme-specific styles
   const inputStyles = {
-    general: "min-w-64 h-10 px-3 py-2 bg-white border-gray-300 rounded-md",
-    normal:
-      " min-w-64 h-textfield px-4 py-2 bg-white border-primary rounded-md",
+    general: "min-w-64 h-10 px-3 py-2 bg-white rounded-md",
+    normal: " min-w-64 h-textfield px-4 py-2 bg-white rounded-md",
     fancy:
-      "min-w-80 h-12 px-5 py-3 bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-primary rounded-lg shadow-sm",
+      "min-w-80 h-12 px-5 py-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg shadow-sm",
   };
 
   const inputId = id || name || "date-field";
@@ -73,8 +72,8 @@ export function DateField({
           id={inputId}
           name={name}
           className={cn(
-            "w-full text-gray-900 cursor-pointer",
-            "focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary",
+            "w-full text-gray-900 cursor-pointer border border-gray-300",
+            "focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary",
             "disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed",
             error && "border-red-500 focus:ring-red-500 focus:border-red-500",
             inputStyles[theme]

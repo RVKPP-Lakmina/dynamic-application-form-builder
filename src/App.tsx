@@ -1,7 +1,7 @@
 import FormBuilder from "./form-builder/FormBuilder";
 
 function App() {
-  return <FormBuilder formId="rdbApplication" />;
+  return <FormBuilder />;
 }
 
 export default App;

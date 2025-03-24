@@ -40,7 +40,14 @@ export default function Input({
       </label>
       <input
         className={cn(
-          `${themeStyles[theme]} flex field-sizing-content  border border-gray-300 rounded-md text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed`,
+          `${themeStyles[theme]} flex field-sizing-content
+          border border-gray-300 
+          rounded-md text-sm 
+          ring-offset-background 
+          file:border-0 file:bg-transparent file:text-sm file:font-medium 
+          placeholder:text-muted-foreground 
+          focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary
+          disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed`,
           className
         )}
         {...props}

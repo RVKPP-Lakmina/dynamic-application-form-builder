@@ -1,11 +1,13 @@
+import { RefObject } from "react";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface FormBuilderProps {
-  formId: string;
   otherParams?: Record<string, unknown>;
 }
 
+export type FormMeta = { formId: string; type: string };
 export interface IntermediateFormBuilderProps {
-  formId: string;
+  formMeta: RefObject<FormMeta>;
   otherParams: Record<string, unknown>;
 }
 
