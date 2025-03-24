@@ -18,7 +18,8 @@ const SelectField: React.FC<SelectFieldProps> = ({
     { value: "de", label: "Germany" },
     { value: "jp", label: "Japan", disabled: true },
   ];
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _params = { elementId, metaData };
   return <SelectBox options={countryOptions} />;
 };
 
