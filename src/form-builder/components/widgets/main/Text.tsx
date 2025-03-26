@@ -22,11 +22,15 @@ const Text: React.FC<TextProps> = ({ elementId, metaData }) => {
 
   const onInput = useCallback(
     (e: React.SyntheticEvent<HTMLInputElement>) => {
+      const eventParams = { target: { value: e.currentTarget.value } } as E;
       formatOnInput(
-        { target: { value: e.currentTarget.value } } as E,
+        eventParams,
         metaData.inputOptions?.formatterRule ||
           ("NO_FORMATTER" as FormatterRule)
       );
+
+      (e.target as HTMLInputElement).value =
+        eventParams.target.value.toString();
     },
     [metaData.inputOptions?.formatterRule]
   );

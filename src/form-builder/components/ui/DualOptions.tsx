@@ -58,7 +58,7 @@ export default function DualOptions({
       inactive: " text-gray-600 hover:bg-gray-100",
     },
     fancy: {
-      active: "bg-button-dual-option shadow-md text-primary font-medium",
+      active: "bg-[#9c27b0] text-white shadow-md text-primary font-medium",
       inactive: " text-gray-600 hover:bg-white/50",
     },
   };
@@ -84,10 +84,10 @@ export default function DualOptions({
           disabled && "opacity-60"
         )}
       >
-        <Button
+        <button
           type="button"
           className={`bg-button-dual-option px-4 py-2 text-sm rounded-md transition-colors
-            focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-1
+            focus:outline-none border border-primary
            ${
              (selected === "left"
                ? buttonStyles[theme].active
@@ -102,7 +102,7 @@ export default function DualOptions({
           value="left"
         >
           {leftOption}
-        </Button>
+        </button>
         <Button
           type="button"
           className={cn(

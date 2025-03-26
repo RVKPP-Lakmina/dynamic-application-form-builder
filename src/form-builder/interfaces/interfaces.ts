@@ -9,6 +9,9 @@ export type E = {
   params?: {
     digits?: number;
   };
+  currentTarget: {
+    value: string;
+  };
   target: {
     value: string | number;
     maxLength?: number;
