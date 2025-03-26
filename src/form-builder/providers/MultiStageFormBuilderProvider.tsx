@@ -25,13 +25,13 @@ export default function MultiStageFormBuilderProvider({
       if (expanded && !state?.[expanded]) {
         onChangeValue(expanded, {});
       }
-    }, [expanded, onChangeValue]);
+    }, [onChangeValue, state]);
 
     const onChangeValueHandler = useCallback(
       (payload: any) => {
         onChangeValue(expanded, payload);
       },
-      [expanded, onChangeValue]
+      [onChangeValue]
     );
 
     //validations
@@ -41,6 +41,7 @@ export default function MultiStageFormBuilderProvider({
 
     const onExpand =
       // @ts-nocheck
+
 
         (panel: string) =>
         (_event: React.SyntheticEvent, isExpanded: boolean) => {

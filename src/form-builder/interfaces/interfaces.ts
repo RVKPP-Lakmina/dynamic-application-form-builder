@@ -5,6 +5,17 @@ export interface FormBuilderProps {
   otherParams?: Record<string, unknown>;
 }
 
+export type E = {
+  params?: {
+    digits?: number;
+  };
+  target: {
+    value: string | number;
+    maxLength?: number;
+    max?: string;
+  };
+};
+
 export type FormMeta = { formId: string; type: string };
 export interface IntermediateFormBuilderProps {
   formMeta: RefObject<FormMeta>;
@@ -31,6 +42,13 @@ export interface MultiStageFormBuilderProps {
   formStore: FormStore;
 }
 
+// type AllowedTypesOfSectionState =
+//   | string
+//   | number
+//   | boolean
+//   | Record<string, unknown>
+//   | unknown[];
+
 // Define State Type
 export type SectionState = Record<string, any>;
 
@@ -40,12 +58,39 @@ export type Action =
   | { type: "DELETE_SECTION"; section: string }
   | { type: "RESET_STORE" };
 
+export type FormatterRule =
+  | "ALPHABETIC"
+  | "ALPHABETIC_AND_UPPERCASE"
+  | "ALPHANUMERIC"
+  | "ALPHANUMERIC_AND_SYMBOLS"
+  | "YEAR"
+  | "NUMBER_AND_UPPERCASE"
+  | "OLD_NIC"
+  | "NEW_NIC"
+  | "Generic"
+  | "NO_FORMATTER"
+  | "CURRENCY";
+export interface DependencyManagement {
+  visibility?: Record<string, string>;
+  mandatory?: Record<string, string>;
+}
+
 export type FormStore = {
   title: string;
   type: string;
   children: FormStore[];
   dataKey: string;
-  inputOptions?: { formatter: string; type: string };
+  render: {
+    visibleInForm?: boolean;
+    required?: boolean;
+    visibleInPreview?: boolean;
+  };
+  dependencyManagement?: DependencyManagement;
+  inputOptions?: {
+    formatter: string;
+    type?: string;
+    formatterRule?: FormatterRule;
+  };
 };
 export interface MetaDataProps {
   metaData: FormStore;

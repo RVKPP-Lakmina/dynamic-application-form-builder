@@ -5,7 +5,7 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import { ArrowDownFromLine, CircleEllipsis } from "lucide-react";
+import { ArrowDownFromLine, CircleEllipsis, Pencil } from "lucide-react";
 import { FormStore } from "../../interfaces/interfaces";
 
 interface AccordionComponentProps {
@@ -41,11 +41,18 @@ const AccordionComponent: React.FC<AccordionComponentProps> = ({
         aria-controls={`panel1bh-content-${formData.dataKey}`}
         id={`panel1bh-header-${formData.dataKey}`}
         sx={{
+          display: "flex",
+          alignItems: "center",
           borderBottom:
             expanded === formData.dataKey ? 0 : `1px solid "#e0e0e0"`,
         }}
       >
-        <Stack direction="row" alignItems="center" gap={2}>
+        <Stack
+          key={`panel1bh-content-Stack-${formData.dataKey}`}
+          direction="row"
+          alignItems="center"
+          gap={2}
+        >
           <CircleEllipsis className="text-[#ffd230]" />
           <Stack>
             <h3 className="text-lg font-medium">{formData.title}</h3>
@@ -55,7 +62,18 @@ const AccordionComponent: React.FC<AccordionComponentProps> = ({
           </Stack>
         </Stack>
       </AccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
+      <AccordionDetails>
+        <div className="flex justify-end p-1.5 ">
+          <button
+            onClick={() => {}}
+            className="p-1.5 rounded-full hover:bg-gray-100 hover:text-white dark:hover:bg-gray-800 transition-colors"
+            aria-label="Edit"
+          >
+            <Pencil className="h-4 w-4 " />
+          </button>
+        </div>
+        <div>{children}</div>
+      </AccordionDetails>
     </Accordion>
   );
 };
