@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Logger from "../utility/logger";
 import {
   FormBuilderProps,
-  FormMeta,
   IntermediateFormBuilderProps,
 } from "./interfaces/interfaces";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { ErrorMessageComponent } from "../components/ErrorMessageComponent";
 import MultiStageFormBuilder from "./components/other-components/MultiStageFormBuilder";
-import { rdbApplication } from "../services/configs";
 import { CircularProgress } from "@mui/material";
+import CachingStorage from "./services/cachingStorage";
+import FormBuilderApi from "./services/formBuilderApi";
 
 const FormBuilder: React.FC<FormBuilderProps> = ({
   otherParams = {},
@@ -19,29 +19,36 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
     status: boolean;
     message: string;
   }>({} as { status: boolean; message: string });
-  const formMeta = useRef<FormMeta>({} as FormMeta);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    try {
-      if (!params.has("formId")) {
-        throw new Error("Form Id is missing");
-      }
+    const updateParams = () => {
+      const params = new URLSearchParams(window.location.search);
+      const formId = params.get("formId");
+      const type = params.get("type");
 
-      if (!params.has("type")) {
-        throw new Error("Form Type is missing");
+      try {
+        if (!formId) throw new Error("Form Id is missing");
+        if (!type) throw new Error("Form Type is missing");
+
+        sessionStorage.setItem("theme", "fancy");
+        CachingStorage.set("formId", formId);
+        CachingStorage.set("type", type);
+      } catch (e) {
+        if (e instanceof Error) {
+          setErrorState({ status: true, message: e.message });
+        }
+        Logger.error("form-builder | FormBuilder | Error", e);
+      } finally {
+        setIsLoading(false);
       }
-      sessionStorage.setItem("theme", "fancy");
-      formMeta.current.formId = params.get("formId") as string;
-      formMeta.current.type = params.get("type") as string;
-    } catch (e: unknown | { message: string }) {
-      if (e instanceof Error) {
-        setErrorState({ status: true, message: e.message });
-      }
-      Logger.error("form-builder | FormBuilder | Error", e);
-    } finally {
-      setIsLoading(false);
-    }
+    };
+
+    updateParams();
+    window.addEventListener("popstate", updateParams);
+
+    return () => {
+      window.removeEventListener("popstate", updateParams);
+    };
   }, []);
 
   if (errorState.status) {
@@ -65,7 +72,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
 
   return (
     <ErrorBoundary>
-      <IntermediateFormBuilder formMeta={formMeta} otherParams={otherParams} />
+      <IntermediateFormBuilder otherParams={otherParams} />
     </ErrorBoundary>
   );
 };
@@ -73,7 +80,6 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
 export default FormBuilder;
 
 const IntermediateFormBuilder: React.FC<IntermediateFormBuilderProps> = ({
-  formMeta,
   otherParams,
 }: IntermediateFormBuilderProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -82,11 +88,10 @@ const IntermediateFormBuilder: React.FC<IntermediateFormBuilderProps> = ({
 
   const getForms = useCallback(async () => {
     try {
-      const formId = formMeta.current?.formId;
-      console.log("formId", formId);
-      // const forms = await FormBuilderApi.getForms(formId);
-      const forms = rdbApplication;
-      setFormStore(forms);
+      const formId = CachingStorage.get("formId") as string;
+      const type = CachingStorage.get("type") as string;
+      const response = await FormBuilderApi.getForms(formId, type);
+      setFormStore(response);
     } catch (error) {
       Logger.error(
         "form-builder | IntermediateFormBuilder | Error while fetching forms",
@@ -95,7 +100,7 @@ const IntermediateFormBuilder: React.FC<IntermediateFormBuilderProps> = ({
     } finally {
       setIsLoading(false);
     }
-  }, [formMeta]);
+  }, []);
 
   useEffect(() => {
     getForms();

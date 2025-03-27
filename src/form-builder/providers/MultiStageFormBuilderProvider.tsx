@@ -3,41 +3,76 @@
 import { useCallback, useEffect, useState } from "react";
 import MultiStageFormBuilderContext from "../context/MultiStageFormBuilderContext";
 import useStore from "../hooks/useStore";
+import { FormStore } from "../interfaces/interfaces";
+import validationMandatoryHandler from "../validations/validations";
 
 export default function MultiStageFormBuilderProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // const [applicationSectionErrors, setApplicationSectionErrors] = useState<
-  //   Record<string, string[]>
-  // >({});
+  const [applicationSectionErrors, setApplicationSectionErrors] = useState<
+    Record<string, string[]>
+  >({});
   // const [currSaveData, setCurrSaveData] = useState<Record<string, unknown>>({});
   const [expanded, setExpanded] = useState<string>("");
 
-  const useHandleOnNext = () => {
+  const showAllErrors = useCallback(
+    (
+      isForCurrSection = false,
+      section = ""
+    ): string[] | Record<string, string[]> => {
+      return isForCurrSection
+        ? applicationSectionErrors[section] || []
+        : applicationSectionErrors;
+    },
+    [applicationSectionErrors]
+  );
+
+  const useHandleOnNext = (metaData: FormStore, sectionDataKey: string) => {
     const {
       state,
       mainActions: { onChangeValue },
     } = useStore();
 
     useEffect(() => {
-      if (expanded && !state?.[expanded]) {
-        onChangeValue(expanded, {});
+      if (sectionDataKey && !state?.[sectionDataKey]) {
+        onChangeValue(sectionDataKey, {});
       }
-    }, [onChangeValue, state]);
+    }, [onChangeValue, sectionDataKey, state]);
 
     const onChangeValueHandler = useCallback(
       (payload: any) => {
-        onChangeValue(expanded, payload);
+        onChangeValue(sectionDataKey, payload);
       },
-      [onChangeValue]
+      [onChangeValue, sectionDataKey]
     );
 
-    //validations
-    const handleValidation = () => {};
+    const pencilClick = () => {
+      console.log(state?.[sectionDataKey] || {});
+    };
 
-    const onNext = () => {};
+    //validations
+    const handleValidation = () => {
+      const mandatoryResponse: string[] = validationMandatoryHandler(
+        metaData,
+        sectionDataKey,
+        state?.[sectionDataKey]
+      );
+
+      setApplicationSectionErrors((prevState) => ({
+        ...prevState,
+        [sectionDataKey]: mandatoryResponse,
+      }));
+
+      state[sectionDataKey]["status"] = mandatoryResponse.length
+        ? "error"
+        : "success";
+    };
+
+    const onNext = () => {
+      handleValidation();
+    };
 
     const onExpand =
       // @ts-nocheck
@@ -54,13 +89,14 @@ export default function MultiStageFormBuilderProvider({
       onExpand,
       expanded,
       onChangeValueHandler,
-      value: state?.[expanded] || {},
+      pencilClick,
+      value: state?.[sectionDataKey] || {},
     };
   };
 
   return (
     <MultiStageFormBuilderContext.Provider
-      value={{ formId: "1", otherParams: {}, useHandleOnNext }}
+      value={{ formId: "1", otherParams: {}, useHandleOnNext, showAllErrors }}
     >
       {children}
     </MultiStageFormBuilderContext.Provider>

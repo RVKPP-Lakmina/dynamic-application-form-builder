@@ -8,7 +8,8 @@ const MultiStageFormBuilder: React.FC<MultiStageFormBuilderProps> = ({
 }: // otherParams,
 MultiStageFormBuilderProps) => {
   switch (formStore?.type) {
-    case "form": {
+    case "form":
+    case "section": {
       return (
         <StoreProvider
           key={`MultiStageFormBuilder-switch-StoreProvider-${formStore.dataKey}`}

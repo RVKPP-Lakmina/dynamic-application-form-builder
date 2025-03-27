@@ -1,22 +1,22 @@
 import axios from "axios";
 
 export default class API {
-  private baseUrl =
+  private baseUrl: string =
     import.meta.env.VITE_APP_BASE_URL || "http://localhost:3000";
   private headers = {
     "Content-Type": "application/json",
   };
   private apiInstance;
 
-  constructor() {
+  constructor(baseUrl?: string) {
     this.apiInstance = axios.create({
-      baseURL: this.baseUrl,
+      baseURL: baseUrl || this.baseUrl,
       headers: this.headers,
     });
   }
 
-  public static get apiConfigIntance() {
-    return new API();
+  public static getApiConfigIntance(baseUrl?: string) {
+    return new API(baseUrl);
   }
 
   get = async <T>(url: string): Promise<T> => {

@@ -1,9 +1,11 @@
-import { RefObject } from "react";
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface FormBuilderProps {
   otherParams?: Record<string, unknown>;
 }
+
+export type FormStatus = "success" | "error" | "pending";
+
+export type UpdateParams<T, K extends string, V> = Omit<T, K> & Record<K, V>;
 
 export type E = {
   params?: {
@@ -21,14 +23,16 @@ export type E = {
 
 export type FormMeta = { formId: string; type: string };
 export interface IntermediateFormBuilderProps {
-  formMeta: RefObject<FormMeta>;
   otherParams: Record<string, unknown>;
 }
 
 export interface MultiStageFormBuilderContextProps {
   formId: string;
   otherParams: Record<string, unknown>;
-  useHandleOnNext: () => {
+  useHandleOnNext: (
+    metaData: FormStore,
+    sectionDataKey: string
+  ) => {
     handleValidation: () => void;
     onNext: () => void;
     expanded: string | false;
@@ -37,7 +41,12 @@ export interface MultiStageFormBuilderContextProps {
     ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
     onChangeValueHandler: (payload: any) => void;
     value: any;
+    pencilClick: () => void;
   };
+  showAllErrors: (
+    isForCurrSection?: boolean,
+    section?: string
+  ) => string[] | Record<string, string[]>;
 }
 
 export interface MultiStageFormBuilderProps {

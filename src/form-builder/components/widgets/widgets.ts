@@ -52,6 +52,22 @@ export const mainWidgetMap = new Map<
       }))
     ),
   ],
+  [
+    "label",
+    React.lazy(() =>
+      import("./main/Label").then((module) => ({
+        default: module.default as React.ComponentType<unknown>,
+      }))
+    ),
+  ],
+  [
+    "filePicker",
+    React.lazy(() =>
+      import("./main/DropZone").then((module) => ({
+        default: module.default as React.ComponentType<unknown>,
+      }))
+    ),
+  ],
 ]);
 
 export const customWidgetMap = new Map<string, unknown>([]);

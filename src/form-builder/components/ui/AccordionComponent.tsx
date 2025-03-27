@@ -5,13 +5,21 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import { ArrowDownFromLine, CircleEllipsis, Pencil } from "lucide-react";
-import { FormStore } from "../../interfaces/interfaces";
+import {
+  ArrowDownFromLine,
+  CircleHelp,
+  CircleEllipsis,
+  Pencil,
+  CircleCheck,
+} from "lucide-react";
+import { FormStatus, FormStore } from "../../interfaces/interfaces";
 
 interface AccordionComponentProps {
   children: React.ReactNode;
   formData: FormStore;
   expanded: string | false;
+  status?: FormStatus;
+  pencilClick?: () => void;
   onExpand: (
     panel: string
   ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
@@ -21,7 +29,9 @@ const AccordionComponent: React.FC<AccordionComponentProps> = ({
   children,
   formData,
   expanded,
+  status,
   onExpand,
+  pencilClick,
 }: AccordionComponentProps) => {
   return (
     <Accordion
@@ -53,7 +63,7 @@ const AccordionComponent: React.FC<AccordionComponentProps> = ({
           alignItems="center"
           gap={2}
         >
-          <CircleEllipsis className="text-[#ffd230]" />
+          <IconSelection status={status || "pending"} />
           <Stack>
             <h3 className="text-lg font-medium">{formData.title}</h3>
             <Typography variant="subtitle2" color="text.secondary">
@@ -65,7 +75,7 @@ const AccordionComponent: React.FC<AccordionComponentProps> = ({
       <AccordionDetails>
         <div className="flex justify-end p-1.5 ">
           <button
-            onClick={() => {}}
+            onClick={pencilClick}
             className="p-1.5 rounded-full hover:bg-gray-100 hover:text-white dark:hover:bg-gray-800 transition-colors"
             aria-label="Edit"
           >
@@ -79,3 +89,21 @@ const AccordionComponent: React.FC<AccordionComponentProps> = ({
 };
 
 export default AccordionComponent;
+
+interface IconSelectionProps {
+  status: FormStatus;
+}
+
+const IconSelection: React.FC<IconSelectionProps> = ({
+  status,
+}: IconSelectionProps) => {
+  if (status === "success") {
+    return <CircleCheck className="text-green-600" />;
+  }
+
+  if (status === "error") {
+    return <CircleHelp className="text-red-600" />;
+  }
+
+  return <CircleEllipsis className="text-[#ffd230]" />;
+};

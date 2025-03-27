@@ -1,38 +1,23 @@
-import { forwardRef } from "react";
-import { cn } from "../../../utility/cn";
+import { MetaDataProps } from "../../../interfaces/interfaces";
+import Label from "../../ui/Label";
 
-interface LabelProps {
-  id?: string;
-  name?: string;
-  label?: string;
-  required?: boolean;
-  disabled?: boolean;
-  error?: boolean;
-  labelClassName?: string;
+interface LabelWidgetProps extends MetaDataProps {
+  elementId: string;
 }
 
-const Label = forwardRef<HTMLLabelElement, LabelProps>(
-  (
-    { id, name, label, required, disabled, error, labelClassName, ...props },
-    ref
-  ) => {
-    return (
-      <label
-        ref={ref}
-        htmlFor={id || name}
-        className={cn(
-          "text-sm font-medium",
-          disabled && "text-gray-400",
-          error && "text-red-500",
-          labelClassName
-        )}
-        {...props}
-      >
-        {label || "Select"}
-        {required && <span className="text-red-500 ml-1">*</span>}
-      </label>
-    );
-  }
-);
+const LabelWidget: React.FC<LabelWidgetProps> = ({
+  metaData,
+}: LabelWidgetProps) => {
+  return (
+    <Label
+      labelClassName="text-[16px] text-gray-800 "
+      label={metaData?.title}
+    />
+  );
+};
 
-export default Label;
+const LabelWidgetWrapper: React.FC<LabelWidgetProps> = (props) => {
+  return <LabelWidget {...props} />;
+};
+
+export default LabelWidgetWrapper;

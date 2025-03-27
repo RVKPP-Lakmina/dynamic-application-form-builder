@@ -11,8 +11,8 @@ const Row: React.FC<WrapProps> = ({ metaData, elementId }: WrapProps) => {
     <Stack
       direction={"row"}
       flexWrap={"wrap"}
-      gap={2}
-      className="w-full h-full p-1"
+      gap={4}
+      className="w-full h-full p-1 m-2 text-gray-500"
     >
       <FormStoreConfigBreaker
         formStore={metaData.children}
