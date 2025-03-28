@@ -1,15 +1,19 @@
 import { useCallback, useMemo, useState } from "react";
-import useMultiStageFormBuilder from "../../../hooks/useMultiStageFormBuilder";
-import { MetaDataProps } from "../../../interfaces/interfaces";
+import { MetaDataProps, WidgetParams } from "../../../interfaces/interfaces";
 import mandatory from "../../../utility/mandatoryManagement";
 import visible from "../../../utility/visibilityManagement";
 import SelectBox from "../../ui/SelectBox";
 
 interface SelectFieldProps extends MetaDataProps {
   elementId: string;
+  params: WidgetParams;
 }
 
-const SelectField: React.FC<SelectFieldProps> = ({ elementId, metaData }) => {
+const SelectField: React.FC<SelectFieldProps> = ({
+  elementId,
+  metaData,
+  params,
+}) => {
   const countryOptions = [
     { value: "us", label: "United States" },
     { value: "ca", label: "Canada" },
@@ -19,8 +23,8 @@ const SelectField: React.FC<SelectFieldProps> = ({ elementId, metaData }) => {
     { value: "de", label: "Germany" },
     { value: "jp", label: "Japan", disabled: true },
   ];
-  const { useHandleOnNext } = useMultiStageFormBuilder();
-  const { value, onChangeValueHandler } = useHandleOnNext();
+
+  const { value, onChangeValueHandler } = params;
   const [text, setText] = useState(value[metaData.dataKey] || "");
 
   const onBlur = useCallback(
@@ -56,15 +60,17 @@ const SelectField: React.FC<SelectFieldProps> = ({ elementId, metaData }) => {
 const SelectFieldWrapper: React.FC<SelectFieldProps> = ({
   elementId,
   metaData,
+  params,
 }) => {
-  const { useHandleOnNext } = useMultiStageFormBuilder();
-  const { value } = useHandleOnNext();
+  const { value } = params;
 
   const visibility: boolean = visible(value, { metaData });
 
   if (!visibility) return <></>;
 
-  return <SelectField elementId={elementId} metaData={metaData} />;
+  return (
+    <SelectField params={params} elementId={elementId} metaData={metaData} />
+  );
 };
 
 export default SelectFieldWrapper;

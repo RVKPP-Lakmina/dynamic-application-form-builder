@@ -1,19 +1,19 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { DateField } from "../../ui/DataBox";
-import { MetaDataProps } from "../../../interfaces/interfaces";
-import useMultiStageFormBuilder from "../../../hooks/useMultiStageFormBuilder";
+import { MetaDataProps, WidgetParams } from "../../../interfaces/interfaces";
 import mandatory from "../../../utility/mandatoryManagement";
 
 interface DateBoxProps extends MetaDataProps {
   elementId: string;
+  params: WidgetParams;
 }
 
 const DateBox: React.FC<DateBoxProps> = ({
   elementId,
   metaData,
+  params,
 }: DateBoxProps) => {
-  const { useHandleOnNext } = useMultiStageFormBuilder();
-  const { value, onChangeValueHandler } = useHandleOnNext();
+  const { value, onChangeValueHandler } = params;
   const [text, setText] = useState(value[metaData.dataKey] || "");
 
   const onBlur = useCallback(
@@ -49,8 +49,9 @@ const DateBox: React.FC<DateBoxProps> = ({
 const DateBoxWrapper: React.FC<DateBoxProps> = ({
   elementId,
   metaData,
+  params,
 }: DateBoxProps) => {
-  return <DateBox metaData={metaData} elementId={elementId} />;
+  return <DateBox params={params} metaData={metaData} elementId={elementId} />;
 };
 
 export default DateBoxWrapper;

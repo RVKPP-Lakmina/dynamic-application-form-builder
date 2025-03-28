@@ -25,10 +25,20 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
       const params = new URLSearchParams(window.location.search);
       const formId = params.get("formId");
       const type = params.get("type");
+      const dependent: string | undefined = params.get("params") || undefined;
 
       try {
         if (!formId) throw new Error("Form Id is missing");
         if (!type) throw new Error("Form Type is missing");
+
+        if (dependent) {
+          try {
+            const decoder = new TextDecoder();
+            console.log(decoder.decode(dependent));
+          } catch (e) {
+            console.error(e);
+          }
+        }
 
         sessionStorage.setItem("theme", "fancy");
         CachingStorage.set("formId", formId);

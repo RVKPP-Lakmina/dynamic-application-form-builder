@@ -1,5 +1,6 @@
 import FormBuilder from "./form-builder/FormBuilder";
 import Navigation from "./components/Navigation";
+// import SettingsPage from "./pages/settings/SettingsPage";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       </div>
       <div className="flex-9">
         <FormBuilder />
+        {/* <SettingsPage /> */}
       </div>
     </div>
   );

@@ -1,12 +1,17 @@
 import { Stack } from "@mui/material";
 import FormStoreConfigBreaker from "../../other-components/FormStoreConfigBreaker";
-import { MetaDataProps } from "../../../interfaces/interfaces";
+import { MetaDataProps, WidgetParams } from "../../../interfaces/interfaces";
 
 interface WrapProps extends MetaDataProps {
   elementId: string;
+  params: WidgetParams;
 }
 
-const Row: React.FC<WrapProps> = ({ metaData, elementId }: WrapProps) => {
+const Row: React.FC<WrapProps> = ({
+  metaData,
+  elementId,
+  params,
+}: WrapProps) => {
   return (
     <Stack
       direction={"row"}
@@ -17,6 +22,7 @@ const Row: React.FC<WrapProps> = ({ metaData, elementId }: WrapProps) => {
       <FormStoreConfigBreaker
         formStore={metaData.children}
         elementId={`${elementId}-${metaData.type}-Wrap-Box-FormStoreConfigBreaker`}
+        params={params}
       />
     </Stack>
   );

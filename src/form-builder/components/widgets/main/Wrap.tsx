@@ -1,11 +1,16 @@
-import { MetaDataProps } from "../../../interfaces/interfaces";
+import { MetaDataProps, WidgetParams } from "../../../interfaces/interfaces";
 import Row from "./Row";
 
 interface WrapProps extends MetaDataProps {
   elementId: string;
+  params: WidgetParams;
 }
 
-const Wrap: React.FC<WrapProps> = ({ elementId, metaData }: WrapProps) => {
+const Wrap: React.FC<WrapProps> = ({
+  elementId,
+  metaData,
+  params,
+}: WrapProps) => {
   return (
     // <div className="p-1 gap-2 grid grid-cols-4 ">
     //   <FormStoreConfigBreaker
@@ -14,7 +19,7 @@ const Wrap: React.FC<WrapProps> = ({ elementId, metaData }: WrapProps) => {
     //   />
     // </div>
 
-    <Row metaData={metaData} elementId={elementId} />
+    <Row metaData={metaData} elementId={elementId} params={params} />
   );
 };
 

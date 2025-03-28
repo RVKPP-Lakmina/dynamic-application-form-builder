@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from "react";
-import useMultiStageFormBuilder from "../../../hooks/useMultiStageFormBuilder";
 import {
   E,
   FormatterRule,
   MetaDataProps,
+  WidgetParams,
 } from "../../../interfaces/interfaces";
 import Input from "../../ui/Input";
 import { formatOnInput, formatValue } from "../../../utility/formatters";
@@ -13,11 +13,11 @@ import mandatory from "../../../utility/mandatoryManagement";
 
 interface TextProps extends MetaDataProps {
   elementId: string;
+  params: WidgetParams;
 }
 
-const Text: React.FC<TextProps> = ({ elementId, metaData }) => {
-  const { useHandleOnNext } = useMultiStageFormBuilder();
-  const { onChangeValueHandler, value } = useHandleOnNext();
+const Text: React.FC<TextProps> = ({ elementId, metaData, params }) => {
+  const { onChangeValueHandler, value } = params;
   const [text, setText] = useState(value[metaData.dataKey] || "");
 
   const onInput = useCallback(
@@ -71,15 +71,15 @@ const Text: React.FC<TextProps> = ({ elementId, metaData }) => {
 const IntermediaryComponent: React.FC<TextProps> = ({
   elementId,
   metaData,
+  params,
 }: TextProps) => {
-  const { useHandleOnNext } = useMultiStageFormBuilder();
-  const { value } = useHandleOnNext();
+  const { value } = params;
 
   const visibility: boolean = visible(value, { metaData });
 
   if (!visibility) return <></>;
 
-  return <Text elementId={elementId} metaData={metaData} />;
+  return <Text elementId={elementId} metaData={metaData} params={params} />;
 };
 
 export default IntermediaryComponent;

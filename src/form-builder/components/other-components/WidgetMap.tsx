@@ -1,6 +1,6 @@
 import React from "react";
 import { customWidgetMap, mainWidgetMap } from "../widgets/widgets";
-import { FormStore } from "../../interfaces/interfaces";
+import { FormStore, WidgetMapProps } from "../../interfaces/interfaces";
 import { CircularProgress } from "@mui/material";
 
 const searchAndVerifyWidget = <
@@ -11,6 +11,7 @@ const searchAndVerifyWidget = <
   if (
     formStore.type === "text" &&
     formStore?.inputOptions &&
+    formStore.inputOptions.type &&
     mainWidgetMap.has(formStore.inputOptions.type)
   ) {
     return mainWidgetMap.get(
@@ -32,14 +33,10 @@ const searchAndVerifyWidget = <
   );
 };
 
-interface WidgetMapProps {
-  elementId: string;
-  formStore: FormStore;
-}
-
 const WidgetMap: React.FC<WidgetMapProps> = ({
   elementId,
   formStore,
+  params,
 }: WidgetMapProps) => {
   return (
     <React.Suspense fallback={<CircularProgress size={10} />}>
@@ -48,6 +45,7 @@ const WidgetMap: React.FC<WidgetMapProps> = ({
           key: `${elementId}-${formStore.type}-WidgetMap-switch-ApplicationFormBuilder-${formStore.dataKey}`,
           elementId: `${elementId}-${formStore.type}-WidgetMap-switch-ApplicationFormBuilder-${formStore.dataKey}`,
           metaData: formStore,
+          params: { ...params },
         })}
       </>
     </React.Suspense>

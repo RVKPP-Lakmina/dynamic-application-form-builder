@@ -14,7 +14,6 @@ export default function MultiStageFormBuilderProvider({
   const [applicationSectionErrors, setApplicationSectionErrors] = useState<
     Record<string, string[]>
   >({});
-  // const [currSaveData, setCurrSaveData] = useState<Record<string, unknown>>({});
   const [expanded, setExpanded] = useState<string>("");
 
   const showAllErrors = useCallback(
@@ -35,6 +34,8 @@ export default function MultiStageFormBuilderProvider({
       mainActions: { onChangeValue },
     } = useStore();
 
+    console.log("metaData", sectionDataKey);
+
     useEffect(() => {
       if (sectionDataKey && !state?.[sectionDataKey]) {
         onChangeValue(sectionDataKey, {});
@@ -49,7 +50,7 @@ export default function MultiStageFormBuilderProvider({
     );
 
     const pencilClick = () => {
-      console.log(state?.[sectionDataKey] || {});
+      console.log(sectionDataKey, state?.[sectionDataKey] || {});
     };
 
     //validations

@@ -15,10 +15,14 @@ const SectionBuilder: React.FC<SectionBuilderProps> = ({
   params,
 }: SectionBuilderProps) => {
   const { useHandleOnNext } = useMultiStageFormBuilder();
-  const { expanded, onExpand, onNext, value, pencilClick } = useHandleOnNext(
-    metaData,
-    metaData.dataKey
-  );
+  const {
+    expanded,
+    onExpand,
+    onNext,
+    value,
+    pencilClick,
+    onChangeValueHandler,
+  } = useHandleOnNext(metaData, metaData.dataKey);
 
   return (
     <Box className=" h-full p-1 m-1 border border-gray-200">
@@ -36,7 +40,7 @@ const SectionBuilder: React.FC<SectionBuilderProps> = ({
               key={`${elementId}-${metaData?.type}-FormStoreConfigBreaker-switch-ApplicationFormBuilder-${metaData.dataKey}`}
               elementId={`${elementId}-${metaData?.type}-FormStoreConfigBreaker-switch-ApplicationFormBuilder-${metaData.dataKey}`}
               formStore={[...metaData.children]}
-              params={{}}
+              params={{ ...params, value, onChangeValueHandler }}
             />
             <Stack mt={2} direction="row" justifyContent="flex-end">
               <Button

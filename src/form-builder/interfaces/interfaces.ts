@@ -49,6 +49,16 @@ export interface MultiStageFormBuilderContextProps {
   ) => string[] | Record<string, string[]>;
 }
 
+export type WidgetParams = {
+  onChangeValueHandler: (payload: any) => void;
+  value: any;
+};
+export interface WidgetMapProps {
+  elementId: string;
+  formStore: FormStore;
+  params: WidgetParams;
+}
+
 export interface MultiStageFormBuilderProps {
   otherParams: Record<string, unknown>;
   formStore: FormStore;

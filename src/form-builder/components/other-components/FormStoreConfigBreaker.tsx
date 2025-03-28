@@ -65,7 +65,11 @@ interface BuildProps {
   params?: unknown;
 }
 
-const Build: React.FC<BuildProps> = ({ form, elementId }: BuildProps) => {
+const Build: React.FC<BuildProps> = ({
+  form,
+  elementId,
+  params,
+}: BuildProps) => {
   switch (form?.type) {
     case "section": {
       return (
@@ -74,6 +78,7 @@ const Build: React.FC<BuildProps> = ({ form, elementId }: BuildProps) => {
           elementId={`${elementId}-${form?.type}-section-SectionBuilder-switch-ApplicationFormBuilder-${form.dataKey}`}
           metaData={form}
           params={{
+            ...(params || {}),
             sectionKey: form.dataKey,
           }}
         />
@@ -87,6 +92,10 @@ const Build: React.FC<BuildProps> = ({ form, elementId }: BuildProps) => {
           key={`${elementId}-${form?.type}-FormStoreConfigBreaker-switch-ApplicationFormBuilder-${form.dataKey}`}
           elementId={`${elementId}-${form?.type}-template-FormStoreConfigBreaker-switch-ApplicationFormBuilder-${form.dataKey}`}
           formStore={[...form.children]}
+          params={{
+            ...(params || {}),
+            sectionKey: form.dataKey,
+          }}
         />
       );
     }
@@ -97,6 +106,10 @@ const Build: React.FC<BuildProps> = ({ form, elementId }: BuildProps) => {
           key={`${elementId}-${form.type}-WidgetMap-switch-ApplicationFormBuilder-${form.dataKey}`}
           elementId={`${elementId}-${form.type}-WidgetMap-switch-ApplicationFormBuilder-${form.dataKey}`}
           formStore={form}
+          params={{
+            ...(params || {}),
+            sectionKey: form.dataKey,
+          }}
         />
       );
     }
