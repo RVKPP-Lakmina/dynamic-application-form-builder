@@ -34,7 +34,7 @@ export interface MultiStageFormBuilderContextProps {
     sectionDataKey: string
   ) => {
     handleValidation: () => void;
-    onNext: () => void;
+    onNext: () => Promise<void>;
     expanded: string | false;
     onExpand: (
       panel: string
@@ -52,11 +52,12 @@ export interface MultiStageFormBuilderContextProps {
 export type WidgetParams = {
   onChangeValueHandler: (payload: any) => void;
   value: any;
+  sectionKey: string;
 };
 export interface WidgetMapProps {
   elementId: string;
   formStore: FormStore;
-  params: WidgetParams;
+  params?: WidgetParams;
 }
 
 export interface MultiStageFormBuilderProps {

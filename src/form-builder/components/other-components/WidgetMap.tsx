@@ -1,10 +1,14 @@
 import React from "react";
 import { customWidgetMap, mainWidgetMap } from "../widgets/widgets";
-import { FormStore, WidgetMapProps } from "../../interfaces/interfaces";
+import {
+  FormStore,
+  WidgetMapProps,
+  WidgetParams,
+} from "../../interfaces/interfaces";
 import { CircularProgress } from "@mui/material";
 
 const searchAndVerifyWidget = <
-  T extends { elementId: string; metaData: FormStore }
+  T extends { elementId: string; metaData: FormStore; params?: WidgetParams }
 >(
   formStore: FormStore
 ): React.LazyExoticComponent<React.ComponentType<T>> => {
@@ -45,7 +49,7 @@ const WidgetMap: React.FC<WidgetMapProps> = ({
           key: `${elementId}-${formStore.type}-WidgetMap-switch-ApplicationFormBuilder-${formStore.dataKey}`,
           elementId: `${elementId}-${formStore.type}-WidgetMap-switch-ApplicationFormBuilder-${formStore.dataKey}`,
           metaData: formStore,
-          params: { ...params },
+          params: params as WidgetParams,
         })}
       </>
     </React.Suspense>

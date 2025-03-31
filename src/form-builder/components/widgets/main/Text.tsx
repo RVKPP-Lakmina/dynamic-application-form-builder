@@ -32,7 +32,7 @@ const Text: React.FC<TextProps> = ({ elementId, metaData, params }) => {
       (e.target as HTMLInputElement).value =
         eventParams.target.value.toString();
     },
-    [metaData.inputOptions?.formatterRule]
+    [metaData.inputOptions]
   );
 
   const onBlur = useCallback(

@@ -1,8 +1,15 @@
 import { ReactNode, useMemo, useReducer } from "react";
 import StoreContext from "../context/StoreContext";
 import { initialState, reducer } from "../stores/formDataStore";
+import MultiStageFormBuilderProvider from "./MultiStageFormBuilderProvider";
 
-const StoreProvider = ({ children }: { children: ReactNode }) => {
+const StoreProvider = ({
+  children,
+  elementId,
+}: {
+  children: ReactNode;
+  elementId: string;
+}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const mainActions = useMemo(() => {
@@ -27,7 +34,11 @@ const StoreProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <StoreContext.Provider value={{ state, mainActions }}>
-      {children}
+      <MultiStageFormBuilderProvider
+        key={`${elementId}-StoreProvider-StoreContext-MultiStageFormBuilderProvider`}
+      >
+        {children}
+      </MultiStageFormBuilderProvider>
     </StoreContext.Provider>
   );
 };

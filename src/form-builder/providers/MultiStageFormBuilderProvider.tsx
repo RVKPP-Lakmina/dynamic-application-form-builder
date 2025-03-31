@@ -5,6 +5,7 @@ import MultiStageFormBuilderContext from "../context/MultiStageFormBuilderContex
 import useStore from "../hooks/useStore";
 import { FormStore } from "../interfaces/interfaces";
 import validationMandatoryHandler from "../validations/validations";
+import saveSectionChanges from "../services/app-saving-service/saveSectionChanges";
 
 export default function MultiStageFormBuilderProvider({
   children,
@@ -33,8 +34,6 @@ export default function MultiStageFormBuilderProvider({
       state,
       mainActions: { onChangeValue },
     } = useStore();
-
-    console.log("metaData", sectionDataKey);
 
     useEffect(() => {
       if (sectionDataKey && !state?.[sectionDataKey]) {
@@ -69,10 +68,39 @@ export default function MultiStageFormBuilderProvider({
       state[sectionDataKey]["status"] = mandatoryResponse.length
         ? "error"
         : "success";
+
+      // Dispatch onError event
+      window.postMessage(
+        {
+          type: "onError",
+          payload: {
+            sectionKey: sectionDataKey,
+            errors: mandatoryResponse,
+          },
+        },
+        "*"
+      );
     };
 
-    const onNext = () => {
+    const onNext = async () => {
       handleValidation();
+
+      const saveResponse = await saveSectionChanges({
+        sectionKey: sectionDataKey,
+        sectionData: state,
+      });
+
+      // Dispatch onNext event
+      window.postMessage(
+        {
+          type: "onNext",
+          payload: {
+            sectionKey: sectionDataKey,
+            response: saveResponse,
+          },
+        },
+        "*"
+      );
     };
 
     const onExpand =
@@ -82,6 +110,18 @@ export default function MultiStageFormBuilderProvider({
         (panel: string) =>
         (_event: React.SyntheticEvent, isExpanded: boolean) => {
           setExpanded(isExpanded ? panel : "");
+          window.postMessage(
+            {
+              type: "onExpand",
+              payload: {
+                sectionKey: sectionDataKey,
+                event: _event,
+                isExpanded: isExpanded,
+                panel: panel,
+              },
+            },
+            "*"
+          );
         };
 
     return {

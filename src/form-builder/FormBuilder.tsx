@@ -25,7 +25,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
       const params = new URLSearchParams(window.location.search);
       const formId = params.get("formId");
       const type = params.get("type");
-      const dependent: string | undefined = params.get("params") || undefined;
+      const dependent = params.get("params") || undefined;
 
       try {
         if (!formId) throw new Error("Form Id is missing");
@@ -34,7 +34,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
         if (dependent) {
           try {
             const decoder = new TextDecoder();
-            console.log(decoder.decode(dependent));
+            console.log(decodeURI(dependent));
           } catch (e) {
             console.error(e);
           }

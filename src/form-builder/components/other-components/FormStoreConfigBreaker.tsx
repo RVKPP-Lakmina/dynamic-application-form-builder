@@ -1,5 +1,5 @@
 import Logger from "../../../utility/logger";
-import { FormStore } from "../../interfaces/interfaces";
+import { FormStore, WidgetParams } from "../../interfaces/interfaces";
 import SectionBuilder from "./SectionBuilder";
 import WidgetMap from "./WidgetMap";
 
@@ -16,7 +16,7 @@ import WidgetMap from "./WidgetMap";
 interface FormStoreConfigBreakerProps {
   formStore: FormStore[];
   elementId: string;
-  params?: unknown;
+  params?: WidgetParams;
 }
 
 const FormStoreConfigBreaker: React.FC<FormStoreConfigBreakerProps> = ({
@@ -32,6 +32,8 @@ const FormStoreConfigBreaker: React.FC<FormStoreConfigBreakerProps> = ({
     return <></>;
   }
 
+  params = params ? params : ({} as WidgetParams);
+
   return (
     <>
       {formStore.map((form) => (
@@ -39,7 +41,7 @@ const FormStoreConfigBreaker: React.FC<FormStoreConfigBreakerProps> = ({
           key={`${elementId}-${form?.type}-Build-map-FormStoreConfigBreaker-${form.dataKey}`}
           form={form}
           elementId={elementId}
-          params={params}
+          params={params || {}}
         />
       ))}
     </>
@@ -62,7 +64,7 @@ export default FormStoreConfigBreaker;
 interface BuildProps {
   form: FormStore;
   elementId: string;
-  params?: unknown;
+  params?: WidgetParams;
 }
 
 const Build: React.FC<BuildProps> = ({
@@ -93,7 +95,7 @@ const Build: React.FC<BuildProps> = ({
           elementId={`${elementId}-${form?.type}-template-FormStoreConfigBreaker-switch-ApplicationFormBuilder-${form.dataKey}`}
           formStore={[...form.children]}
           params={{
-            ...(params || {}),
+            ...((params as WidgetParams) || {}),
             sectionKey: form.dataKey,
           }}
         />
@@ -107,7 +109,7 @@ const Build: React.FC<BuildProps> = ({
           elementId={`${elementId}-${form.type}-WidgetMap-switch-ApplicationFormBuilder-${form.dataKey}`}
           formStore={form}
           params={{
-            ...(params || {}),
+            ...((params as WidgetParams) || {}),
             sectionKey: form.dataKey,
           }}
         />

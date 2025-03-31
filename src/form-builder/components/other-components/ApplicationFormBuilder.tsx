@@ -1,5 +1,4 @@
 import { FormStore } from "../../interfaces/interfaces";
-import MultiStageFormBuilderProvider from "../../providers/MultiStageFormBuilderProvider";
 import FormStoreConfigBreaker from "./FormStoreConfigBreaker";
 
 interface ApplicationFormBuilderProps {
@@ -13,11 +12,7 @@ const ApplicationFormBuilder: React.FC<ApplicationFormBuilderProps> = ({
 }: ApplicationFormBuilderProps) => {
   return (
     <div className="p-15">
-      <MultiStageFormBuilderProvider
-        key={`${elementId}-ApplicationFormBuilder-div-MultiStageFormBuilderProvider`}
-      >
-        <FormStoreConfigBreaker elementId={elementId} formStore={formStore} />
-      </MultiStageFormBuilderProvider>
+      <FormStoreConfigBreaker elementId={elementId} formStore={formStore} />
     </div>
   );
 };
