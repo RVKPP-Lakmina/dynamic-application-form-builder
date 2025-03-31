@@ -33,7 +33,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
 
         if (dependent) {
           try {
-            const decoder = new TextDecoder();
+            // const decoder = new TextDecoder();
             console.log(decodeURI(dependent));
           } catch (e) {
             console.error(e);

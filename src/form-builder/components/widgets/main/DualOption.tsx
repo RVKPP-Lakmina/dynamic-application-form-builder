@@ -8,9 +8,9 @@ interface DualOptionProps extends MetaDataProps {
 
 const DualOption: React.FC<DualOptionProps> = ({
   metaData,
-  params,
-}: DualOptionProps) => {
-  const { value, onChangeValueHandler } = params;
+}: // params,
+DualOptionProps) => {
+  // const { value, onChangeValueHandler } = params;
   return (
     <DualOptions
       label={metaData?.title || ""}
